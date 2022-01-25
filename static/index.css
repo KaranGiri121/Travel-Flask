@@ -1,0 +1,270 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: rgb(24, 24, 22);
+    color: white;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+nav {
+    width: 100%;
+    padding: 10px 8%;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(59, 58, 58);
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 600;
+    z-index: 3;
+}
+
+.menu {
+    cursor: pointer;
+    display: block;
+    width: 30px;
+    position: relative;
+    z-index: 3;
+}
+
+.menu .menu-button {
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.menu-button::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+}
+
+.menu-button::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+}
+
+.link {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    top: 0;
+    left: 0;
+}
+
+.link.active {
+    display: block;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.link.active li {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.link.active li a {
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+section {
+    position: absolute;
+    width: 100%;
+    padding: 20px 8%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+}
+
+.infomation {
+    flex: 0 50%;
+    align-self: center;
+    font-size: 20px;
+}
+
+.searchbox {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    border: 2px solid white;
+    padding: 5%;
+    border-radius: 30px;
+    height: fit-content;
+}
+
+.startingfrom select {
+    width: 200px;
+    height: 30px;
+}
+
+.destination, .startingfrom {
+    font-size: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 20px;
+}
+
+.destination select {
+    width: 200px;
+    height: 30px;
+}
+
+.dates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 25px;
+}
+
+.dates input {
+    width: 200px;
+    height: 30px;
+}
+
+.search-button {
+    margin-top: 20px;
+}
+
+.search-button input {
+    width: 100px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 15px;
+}
+
+.placeholder {
+    font-size: 20px;
+    background-color: white;
+    width: max-content;
+    color: black;
+    padding: 2px 3%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#NepalTour{
+    display: none;
+}
+
+.toggle-button {
+    display: flex;
+    justify-content: space-around;
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    border:1px solid white;
+    left:50%;
+    transform: translateX(-50%);
+    top:-5%;
+    margin-bottom: 10px;
+}
+.toggle-button input {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: black;
+    color:white;
+    opacity: 10%;
+    font-size: 15px;
+}
+.toggle-button input[disabled],.toggle-button input[disabled]:hover
+{
+    background-color: white;
+    color:rgb(0, 0, 0);
+    opacity: 100%;
+}
+.toggle-button input:hover
+{
+    opacity: 80%;
+}
+@media screen and (max-width:600px) {
+    section
+    {
+        flex-direction: column;
+    }
+    .infomation
+    {
+        margin-top: 10%;
+        font-size: 20px;
+        padding:10% 0;
+    }
+    .searchbox
+    {
+        padding:0;
+    }
+    .toggle-button
+    {
+        margin-top: 10px;
+    }
+    .search-button
+    {
+        margin-bottom: 10px;
+    }
+
+}
+@media only screen and (max-width:400px)
+{
+    .container
+    {
+        width:100%;
+        height: 100vh;
+    }
+    section
+    {
+        flex-direction: column;
+    }
+    .searchbox
+    {
+        padding: 0;
+    }
+    .toggle-button
+    {
+        margin-top: 10px;
+    }
+    form
+    {
+        margin-top: 10px;
+    }
+    .destination,.startingfrom,.dates
+    {
+        font-size: 20px;
+    }
+    .search-button input
+    {
+        margin-bottom: 10px;
+    }
+    .infomation
+    {
+        margin-top: 10%;
+        font-size: 16px;
+    }
+}

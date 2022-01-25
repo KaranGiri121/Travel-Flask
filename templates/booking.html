@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='booking.css')}}">
+    <!-- <link rel="stylesheet" href="../static/booking.css"> -->
+
+
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                Travel
+            </div>
+            <div class="menu">
+                <div class="menu-button"></div>
+            </div>
+        </nav>
+        <section>
+            <div class="info">
+                Selected<br>
+                <p class="From">From:- {{result["From"]}}</p>
+                <p class="To">To:- {{result["To"]}}</p>
+                <p class="dateplace">Date:- {{result["Date"]}}</p>
+            </div>
+            <div class="busseats">
+                <div class="berthmenu">        
+                    <input type="button" value="Lower" class="lower" disabled>
+                    <input type="button" value="Upper" class="upper">
+                </div>
+                <div class="lowerberth">
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                </div>
+                <div class="upperberth">
+                    <div class="berthcontainer" id="Upper">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="berthcontainer">
+                        <div class="left"></div>
+                        <div class="middle">
+                            M<br>i<br>d<br>d<br>l<br>e
+                        </div>
+                        <div class="right"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <ul class="link">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">Booking</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <script src="{{url_for('static',filename='booking.js')}}"></script>
+    <!-- <script src="../static/booking.js"></script> -->
+    <script>
+        let menu_button=document.querySelector('.menu');
+        let logo=document.querySelector('.logo');
+        let link=document.querySelector('.link')
+        menu_button.onclick = function(){
+            menu_button.classList.toggle("active");
+            link.classList.toggle('active');
+        }
+
+        let data={{result|tojson}};
+        let value=JSON.parse(data);
+        for(let i=0;i<value.Lower.length;i++)
+        {
+            x=document.getElementById(value.Lower[i]);
+            x.style.backgroundColor="green";
+        }
+        for(let i=0;i<value.Upper.length;i++)
+        {
+            x=document.getElementById(value.Upper[i]);
+            x.style.backgroundColor="green";
+        }
+        document.querySelector(".From").innerHTML="Place "+value.From[0];
+        document.querySelector(".To").innerHTML="Place "+value.To[0];
+        document.querySelector(".dateplace").innerHTML="Date "+value.Date[0]
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+    <!-- <link rel="stylesheet" href="../static/index.css"> -->
+
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                Travel
+            </div>
+            <div class="menu">
+                <div class="menu-button"></div>
+            </div>
+        </nav>
+        <section>
+            <div class="infomation">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores ratione, nesciunt animi atque provident facilis laborum voluptatum? Ipsa, veritatis. Sunt eius maxime iure cumque, odit suscipit, eum, repellat praesentium iste dolorem officia labore voluptates? Nemo sunt nam temporibus voluptatem omnis eos laboriosam, aperiam reprehenderit modi tempora vitae exercitationem adipisci expedita?
+            </div>
+            <div class="searchbox">
+                <div class="toggle-button">
+                    <input type="button" value="India" class="indiabutton" disabled>
+                    <input type="button" value="Nepal" class="nepalbutton">
+                </div>
+                <form action="/checking" method="POST" id="IndiaTour">
+                    <div class="startingfrom" id="INStart">
+                        <label for="From">From</label>
+                        <select name="From" class="From" onchange="India_To_Nepal()">
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Gujarat">Gujarat</option>
+                        </select>
+                    </div>
+                    <div class="destination" id="INEnd">
+                        <label for="Place">To</label>
+                        <select name="To" class="To" onchange="India_To_Nepal()">
+                            <option value="Dhangadi">Dhangadi</option>
+                            <option value="Nepalgunj">Nepalgunj</option>
+                            <option value="Butwal">Butwal</option>
+                        </select>
+                    </div>
+                    <div class="dates">
+                        <label for="journey-date">Journey-Date</label>
+                        <input type="date" name="Date" id="journey-date">
+                    </div>
+                    <div class="placeholder">
+                        Helloworld
+                    </div>
+                    <div class="search-button">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+                <form action="/checking" method="POST" id="NepalTour">
+                    <div class="startingfrom" id="NPStart">
+                        <label for="From">From</label>
+                        <select name="From" class="From">
+                            <option value="Dhangadi">Dhangadi</option>
+                            <option value="Nepalgunj">Nepalgunj</option>
+                            <option value="Butwal">Butwal</option>
+                        </select>
+                    </div>
+                    <div class="destination" id="NPEnd">
+                        <label for="To">To</label>
+                        <select name="To" class="To">
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Gujarat">Gujarat</option>
+                        </select>
+                    </div>
+                    <div class="dates">
+                        <label for="journey-date">Journey-Date</label>
+                        <input type="date" name="Date" id="journey-date">
+                    </div>
+                    <div class="placeholder">
+                        Helloworld
+                    </div>
+                    <div class="search-button">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </div>
+    <ul class="link">
+        <li><a href="/">Home</a></li>
+        <li><a href="/checking">Booking</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <script src="{{url_for('static',filename='index.js')}}"></script>
+    <!-- <script src="../static/index.js"></script> -->
+</body>
+
+</html>

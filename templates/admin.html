@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='admin.css')}}">
+    <!-- <link rel="stylesheet" href="../static/admin.css"> -->
+
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                Travel
+            </div>
+            <div class="menu">
+                <div class="menu-button"></div>
+            </div>
+        </nav>
+        <h1 style="text-align: center; margin-top: 5%;">Booking Portal</h1>
+        <form action="/booking" method="POST" class="Form">
+
+            <input type="date" name="Date" id="Date">
+            <select value="Place" name="From" class="From"  onchange="endingTo()">
+                <option value="*" selected>*</option>
+                <option name="Dhangadi" id="">Dhangadi</option>
+                <option name="Nepalgunj" id="">Nepalgunj</option>
+                <option name="Butwal" id="">Butwal</option>
+                <option name="Maharashta" id="">Maharashta</option>
+                <option name="Gujarat" id="">Gujarat</option>
+            </select>
+            <select value="Place" name="To" class="To">
+                <option>*</option>
+
+            </select>
+            <div class="seats">
+                <select name="Berth" id="Berth">
+                    <option value="Lower">Lower</option>
+                    <option value="Upper">Upper</option>
+                </select>
+                <select name="Side" id="Side" onchange="selectseat()">
+                    <option value="None" selected>None</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+                <select name="SeatNo" id="SeatNo">
+                    <option value="*">*</option>
+                </select>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+       
+    </div>
+    <ul class="link">
+        <li><a href="/">Home</a></li>
+        <li><a href="/checking">Booking</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <script src="{{url_for('static',filename='admin.js')}}"></script>
+    <!-- <script src="../static/admin.js"></script> -->
+    <script>
+        let menu_button=document.querySelector('.menu');
+        let logo=document.querySelector('.logo');
+        let link=document.querySelector('.link')
+        menu_button.onclick = function(){
+            menu_button.classList.toggle("active");
+            link.classList.toggle('active');
+        }
+
+
+    </script>
+</body>
+
+</html>

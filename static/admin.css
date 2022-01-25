@@ -1,0 +1,140 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container
+{
+    background-color: rgb(24, 24, 22);
+    color:white;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+nav
+{
+    width: 100%;
+    padding:10px 8%;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(59, 58, 58);
+}
+.logo
+{
+    font-size: 30px;
+    font-weight: 600;
+    z-index: 3;
+}
+.menu
+{
+    cursor: pointer;
+    display: block;
+    width: 30px;
+    position: relative;
+    z-index: 3;
+}
+
+.menu .menu-button
+{
+    position: absolute;
+    width:25px;
+    height: 2px;
+    background-color: white;
+    top:50%;
+    transform: translateY(-50%);
+}
+.menu-button::before
+{
+    content: "";
+    position: absolute;
+    top:-7px;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+}
+.menu-button::after
+{
+    content: "";
+    position: absolute;
+    top:7px;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+}
+.link
+{
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    top:0;
+    left:0;
+}
+.link.active
+{
+    display: block;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.link.active li
+{
+    list-style: none;
+    margin-top:20px;
+}
+.link.active li a
+{
+    color:white;
+    text-decoration: none;
+    font-size: 30px;
+}
+.Form
+{
+    border: 2px solid white;
+    border-radius: 20px;
+    position: absolute;
+    top:200px;
+    left:50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    padding:100px;
+
+}
+#Date
+{
+    width:190px;
+    height: 30px;
+}
+.From,.To
+{
+    margin-top: 10px;
+    height: 30px;
+}
+.seats
+{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.seats select
+{
+    height: 30px;
+}
+
+@media only screen and (max-width:400px)
+{
+    .Form
+    {
+        padding: 10%;
+    }
+    h1
+    {
+        position: relative;
+        top:8%;
+    }
+}
