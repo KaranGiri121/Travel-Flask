@@ -5,6 +5,10 @@ const USeats=document.querySelectorAll(".upper .berth .row .seat");
 const count=document.querySelector(".count");
 const total=document.querySelector('.total');
 
+let price=2500;
+//Reading Old Data
+populateUI()
+
 //Update Count And Total
 function updateSelected()
 {
@@ -17,14 +21,13 @@ function updateSelected()
     const UselectedIndex=[...UselectedSeat].map(function(seat){
         return [...USeats].indexOf(seat);
     })
-
-    document.pay.LSeat.value=JSON.stringify(LselectedIndex);
-    document.pay.USeat.value=JSON.stringify(UselectedIndex);
+    localStorage.setItem('LSelected',JSON.stringify(LselectedIndex));
+    localStorage.setItem('USelected',JSON.stringify(UselectedIndex));
     
     
     count.innerHTML=LselectedSeat.length+UselectedSeat.length;
-    total.innerHTML=(LselectedSeat.length+UselectedSeat.length)*Price;
-    document.querySelector("button .total").innerHTML=(LselectedSeat.length+UselectedSeat.length)*Price;
+    total.innerHTML=(LselectedSeat.length+UselectedSeat.length)*price;
+    document.querySelector("button .total").innerHTML=(LselectedSeat.length+UselectedSeat.length)*price;
 }
 
 Lower.addEventListener("click",(e)=>{
@@ -41,7 +44,20 @@ Upper.addEventListener("click",(e)=>{
     }
     updateSelected();
 })
-
+//Function For Reading Old Data
+function populateUI()
+{
+    let x=JSON.parse(localStorage.getItem('LSelected'));
+    for(let i=0;x!=null && i<x.length ;i++)
+    {
+        LSeats[x[i]].classList.toggle('selected');
+    }
+    let y=JSON.parse(localStorage.getItem("USelected"));
+    for(let i=0;y!=null && i<y.length;i++)
+    {
+        USeats[y[i]].classList.toggle('selected');
+    }
+}
 
 //Swtich Between Lower And Upper
 let lowerButton=document.querySelector(".lower-button");
@@ -51,12 +67,12 @@ lowerButton.onclick=function()
     upperButton.disabled=!upperButton.disabled;
     lowerButton.disabled=!lowerButton.disabled;
     document.querySelector(".upper").style.display="none";
-    document.querySelector('.lower').style.display="flex";
+    document.querySelector('.lower').style.display="block";
 }
 upperButton.onclick=function()
 {
     upperButton.disabled=!upperButton.disabled;
     lowerButton.disabled=!lowerButton.disabled;
-    document.querySelector(".upper").style.display="flex";
+    document.querySelector(".upper").style.display="block";
     document.querySelector('.lower').style.display="none";
 }

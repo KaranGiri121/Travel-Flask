@@ -1,157 +1,279 @@
-from flask import Flask,render_template,request,redirect,url_for,session,g,abort
-import json,datetime
+import re
+from flask import Flask, abort, render_template, request, redirect, url_for, session, g
+import json
+import datetime
 from ast import literal_eval as to_list
 import sqlite3 as sql
+import razorpay
+from internal import price
 
+client = razorpay.Client(
+    auth=("rzp_test_I4lyqs7F3Yvm7k", "Tg8752Ru21lqXu2GnvRj6ooN"))
 
-nepaltour=["Dhangadi","Nepalgunj","Butwal"]
-
-
-class User:
-    def __init__(self,id,username,password):
-        self.id=id
-        self.username=username
-        self.password=password
-    
+nepaltour = ['Dhangadi', 'Nepalgunj', 'Butwal']
 
 
 
-users=[]
-users.append(User(id=1,username='karan',password='karan@121'))
+app = Flask(__name__)
+app.secret_key="Karangiri121@gmail.com"
 
-
-
-app= Flask(__name__)
-app.secret_key="karangiri121@gmail.com"
 
 @app.before_request
 def before_request():
-    g.user=None
-    if "user_id" in session:
-        user=[x for x in users if x.id==session['user_id']][0]
-        g.user=user
+    if "id" in session:
+        print("yes")
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template('index.html')
+    print("Helloooooo")
+    session.pop("id",None)
+    session.pop("From",None)
+    session.pop("To",None)
+    session.pop("Date",None)
+    session.pop("Payment",None)
+    session.pop("Payment",None)
+    return render_template("index.html")
 
-@app.route('/checking',methods=["POST","GET"])
-def checking():
-    if request.method == 'POST':
-        result=request.form
-        Date=result["Date"]
-        From=result["From"]
-        To=result["To"]
+
+# @app.route("/checking", methods=["POST", "GET"])
+# def check():
+#     if request.method == "POST":
+#         result = request.form
+#         From = result["From"]
+#         To = result["To"]
+#         Date = result["Date"]
+#     else:
+#         From = "Maharashtra"
+#         To = "Dhangadi"
+#         Now = datetime.datetime.now()
+#         Date = Now.strftime("%Y-%m-%d")
+
+#     Price = price.x[f'{From}To{To}']
+#     result = {
+#         'From': From,
+#         'To': To,
+#         'Date': Date,
+#         'Price': Price
+#     }
+#     if To in nepaltour:
+#         Place = To
+#     else:
+#         Place = f'{From}{To}'
+#     conn = sql.connect("database.db")
+#     conn.row_factory = sql.Row
+#     cur = conn.cursor()
+#     info = cur.execute(f"SELECT * FROM {Place} WHERE Date='{Date}'").fetchone()
+#     if info == None or info == []:
+#         result = json.dumps(result)
+#         return render_template("booking.html", result=result)
+
+#     result['Lower'] = info['Lower']
+#     result['Upper'] = info['Upper']
+
+#     result = json.dumps(result)
+#     return render_template("booking.html", result=result)
+
+    # TESTING
+@app.route("/checking", methods=["POST", "GET"])
+def check():
+    if request.method=="GET" and 'id' not in session:
+        return redirect(url_for("index"))
+    if request.method == "POST":
+        result = request.form
+        From = result["From"]
+        To = result["To"]
+        Date = result["Date"]
+        session['id'] = 1
+        session['From'] = From
+        session["To"] = To
+        session["Date"] = Date
+        print(Date,type(Date))
+
     else:
-        From="Maharashtra"
-        To="Dhangadi"
-        Now=datetime.datetime.now()
-        Date=Now.strftime("%Y-%m-%d")
+        From = session["From"]
+        To = session["To"]
+        Date = session["Date"]
 
-    result={}
-    result["Date"]=Date
-    result["From"]=From
-    result["To"]=To
-    con=sql.connect("database.db")
-    con.row_factory=sql.Row
-
-    cur=con.cursor()
+    Price = price.x[f'{From}To{To}']
+    result = {
+        'From': From,
+        'To': To,
+        'Date': Date,
+        'Price': Price
+    }
     if To in nepaltour:
-        Place=To
+        Place = To
     else:
-        Place=f"{From}{To}"
+        Place = f'{From}{To}'
+    conn = sql.connect("database.db")
+    conn.row_factory = sql.Row
+    cur = conn.cursor()
+    info = cur.execute(f"SELECT * FROM {Place} WHERE Date='{Date}'").fetchone()
+    if info == None or info == []:
+        result = json.dumps(result)
+        lower=list(range(0,30))
+        upper=list(range(0,30))
+        print("Inserting New Row With New Date")
+        conn.execute(f"INSERT INTO {Place} (Date,Lower,Upper) VALUES(?,?,?)",(f'{Date}',f'{lower}',f'{upper}'))
+        conn.commit()
+        return render_template("booking.html", result=result)
 
-    cur.execute(f"SELECT Lower,Upper FROM {Place} WHERE Date='{Date}'")
-    x=cur.fetchone()
-    if x==[] or x==None:
-        print("Helloworld")
-        print(result["From"])
-        print(result["To"])
-        return render_template("booking.html",result=result)
-    else:
-        result['Lower']=to_list(x["Lower"])
-        result["Upper"]=to_list(x["Upper"])
-        result["Date"]=[Date]
-        result["From"]=[From]
-        result["To"]=[To]
-        result=json.dumps(result)
+    result['Lower'] = to_list(info['Lower'])
+    result['Upper'] = to_list(info['Upper'])
 
-    return render_template('booking.html',result=result)
+    result = json.dumps(result)
+    return render_template("booking.html", result=result)
 
 
-@app.route("/booking",methods=['POST'])
-def booking():
-    if(request.method=="POST"):
-        data=request.form
-        Date=data["Date"]
-        From=data["From"]
-        To=data["To"]
-        Berth=data["Berth"]
-        Side=data["Side"]
-        SeatNo=data["SeatNo"]
+# From = None
+# To = None
+# Result = {}
 
-    con=sql.connect("database.db")
-    con.row_factory=sql.Row
 
-    cur=con.cursor()
+# @app.route("/detailform", methods=["POST", "GET"])
+# def detailform():
+#     global From, To, Result
+#     if request.method == "POST" and request.args.get("action") != 'PaymentProcess':
+#         From = request.form["From"]
+#         To = request.form["To"]
+#         Lseat = request.form["LSeat"]
+#         Useat = request.form["USeat"]
+#         Date = request.form["Date"]
+#         print(From, To, Lseat, Useat, Date)
+#         return render_template("detailform.html", result=Result)
 
-    if From in nepaltour:
-        Place=f"{From}{To}"
-    else:
-        Place=To
-    info=cur.execute(f"SELECT * FROM {Place} WHERE Date='{Date}'").fetchall()
-    if info==[]:
-        if Berth=='Lower':
-            Lower="['"+Side+SeatNo+"']"
-            Upper="[]"
+#     # print(request.method)
+
+#     if From == None and To == None:
+#         return redirect(url_for("index"))
+
+#     Info = {}
+#     if request.args.get("action") == "PaymentProcess":
+#         Price = price.x[f'{From}To{To}']*100
+#         data = {"amount": Price, "currency": "INR",
+#                 "receipt": "order_rcptid_11"}
+#         payment = client.order.create(data=data)
+#         Info["Name"] = request.form["Name"]
+#         Info["Mobile"] = request.form["Mobile"]
+#         Info["Email"] = request.form["Email"]
+#     else:
+#         print("Else InCounter")
+#         print(From, To)
+#         return render_template("detailform.html", result=Result)
+
+#     Result["Data"] = payment
+#     Result["Info"] = Info
+#     return render_template("detailform.html", result=Result)
+
+
+                                            #TESTING
+
+
+Lseat=None
+Useat=None
+@app.route("/detailform", methods=["POST", "GET"])
+def detailform():
+    global Lseat,Useat
+    Info={}
+    result={}
+    if "id" not in session:
+        print("id")
+        return redirect(url_for("index"))
+    print(request.method)
+
+    if request.method == "POST" and request.args.get("action") != 'PaymentProcess':
+        try:
+            Lseat = to_list(request.form["LSeat"])
+            Useat = to_list(request.form["USeat"])
+        except:
+            return redirect(url_for("check"))
+        
+        session["Lseat"]=Lseat
+        session["Useat"]=Useat
+
+        # print(Lseat,Useat)
+        # return render_template("detailform.html", result=Info)
+
+    # print(request.method)
+
+    if 'id' not in session:
+        print("Hell")
+        return redirect(url_for("index"))
+
+    if Lseat==None or Useat==None:
+        print("size")
+        return redirect(url_for("index"))
+
+    if "Payment" not in session and request.args.get("action") == "PaymentProcess":
+        Price = price.x[f'{session["From"]}To{session["To"]}']*100*(len(Lseat)+len(Useat))
+        data = {"amount": Price, "currency": "INR",
+                "receipt": "order_rcptid_11"}
+        payment = client.order.create(data=data)
+        #Make Some Variable To Show In DetailFrom HTML   
+        # Result["Data"] = payment
+        session["Payment"]=payment
+        print(payment)
+        # print(payment)
+        # # Result["Info"] = Info
+        # return render_template("detailform.html", result=Result)
+    # print(session["Payment"],session["id"])
+
+
+    Info["From"] = session["From"]
+    Info["Date"] = session["Date"]
+    Info["To"] = session["To"]
+    Price = price.x[f'{session["From"]}To{session["To"]}']
+    Info["Price"] = Price
+    Info["Seat"]= len(Lseat)+len(Useat)
+
+    if 'Payment' in session:
+        result["Data"]=session["Payment"]
+
+    result["Info"]=Info
+    return render_template("detailform.html", result=result)
+
+
+@app.route("/success", methods=["POST","GET"])
+def verifyPayment():
+    param_dict={
+        'razorpay_order_id':request.form["razorpay_order_id"],
+        'razorpay_payment_id':request.form["razorpay_payment_id"],
+        'razorpay_signature':request.form["razorpay_signature"]
+    }
+    try:
+        client.utility.verify_payment_signature(param_dict)
+        # print("Ok")
+        conn=sql.connect("database.db")
+        if session["To"] in nepaltour:
+            Place=session["To"]
         else:
-            Upper="['"+Side+"_"+SeatNo+"']"
-            Lower="[]"
-        cur.execute(f"INSERT INTO {Place} (Date,Lower,Upper) VALUES(?,?,?)",(Date,Lower,Upper))
-    else:
-        if Berth=='Lower':
-            temp=cur.execute(f"SELECT Lower FROM {Place} WHERE Date='{Date}'").fetchone()
-            Lower=to_list(temp[0])
-            temp=f'{Side}{SeatNo}'
-            Lower.append(temp)
-            cur.execute(f'UPDATE {Place} SET Lower="{Lower}" WHERE Date="{Date}"')
-        if Berth=='Upper':
-            temp=cur.execute(f"SELECT Upper FROM {Place} WHERE Date='{Date}'").fetchone()
-            Upper=to_list(temp[0])
-            temp=f'{Side}_{SeatNo}'
-            Upper.append(temp)
-            cur.execute(f'UPDATE {Place} SET Upper="{Upper}" WHERE Date="{Date}"')
+            Place=f'{session["To"]}{session["From"]}'
+        Date=session["Date"]
+        conn.row_factory=sql.Row
+        cur=conn.cursor()
+        info=cur.execute(f"SELECT Lower,Upper FROM {Place} WHERE Date='{Date}'").fetchone()
+        print(info)
+        Lower=to_list(info["Lower"])
+        Upper=to_list(info["Upper"])
 
-    con.commit()
+        for i in session["Lseat"]:
+            Lower.pop(Lower.index(i))
 
-    return redirect(url_for("adminpanal"))
+
+        for i in session["Useat"]:
+            Upper.pop(Upper.index(i))
+
+        # conn.execute(f"INSERT INTO {Place} (Date,Lower,Upper) VALUES(?,?,?)",(f'{Date}',f'{Lower}',f'{Upper}'))
+        conn.execute(f"UPDATE {Place} SET Lower='{Lower}',Upper='{Upper}' WHERE Date='{Date}'")
+        conn.commit()
+    except:
+        return "Payment Not Success Full"
+
+    return redirect(url_for("index"))
+
     
-@app.route("/admin")
-def adminpanal():
-    if not g.user:
-        return redirect(url_for("login"))
-
-    return render_template("admin.html")
 
 
-
-@app.route("/login",methods=['GET','POST'])
-def login():
-    session.pop("user_id",None)
-    if request.method=="POST":
-        username=request.form["Username"]
-        password=request.form["Password"]
-        user=[x for x in users if x.username==username]
-        if not user:
-            return redirect(url_for("login"))
-        user=user[0]
-        if user.password==password:
-            session["user_id"]=user.id
-            return redirect(url_for("index"))
-        return redirect(url_for("login"))
-
-    return render_template("login.html")
-
-if '__main__'==__name__:
-    app.run(debug=True,host='0.0.0.0')
+if "__main__" == __name__:
+    app.run(debug=True)

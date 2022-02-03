@@ -6,102 +6,102 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../static/test.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: rgb(24, 24, 22);
+            color: white;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        nav {
+            width: 100%;
+            padding: 10px 8%;
+            display: flex;
+            justify-content: space-between;
+            background-color: rgb(59, 58, 58);
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 600;
+            z-index: 3;
+        }
+
+        .menu {
+            cursor: pointer;
+            display: block;
+            width: 30px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .menu .menu-button {
+            position: absolute;
+            width: 25px;
+            height: 2px;
+            background-color: white;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .menu-button::before {
+            content: "";
+            position: absolute;
+            top: -7px;
+            width: 25px;
+            height: 2px;
+            background-color: white;
+        }
+
+        .menu-button::after {
+            content: "";
+            position: absolute;
+            top: 7px;
+            width: 25px;
+            height: 2px;
+            background-color: white;
+        }
+
+        .link {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            top: 0;
+            left: 0;
+        }
+
+        .link.active {
+            display: block;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .link.active li {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .link.active li a {
+            color: white;
+            text-decoration: none;
+            font-size: 30px;
+        }
+    </style>
 </head>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    .container {
-        background-color: rgb(24, 24, 22);
-        color: white;
-        position: relative;
-        width: 100%;
-        height: 100vh;
-    }
-
-    nav {
-        width: 100%;
-        padding: 10px 8%;
-        display: flex;
-        justify-content: space-between;
-        background-color: rgb(59, 58, 58);
-    }
-
-    .logo {
-        font-size: 30px;
-        font-weight: 600;
-        z-index: 3;
-    }
-
-    .menu {
-        cursor: pointer;
-        display: block;
-        width: 30px;
-        position: relative;
-        z-index: 3;
-    }
-
-    .menu .menu-button {
-        position: absolute;
-        width: 25px;
-        height: 2px;
-        background-color: white;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .menu-button::before {
-        content: "";
-        position: absolute;
-        top: -7px;
-        width: 25px;
-        height: 2px;
-        background-color: white;
-    }
-
-    .menu-button::after {
-        content: "";
-        position: absolute;
-        top: 7px;
-        width: 25px;
-        height: 2px;
-        background-color: white;
-    }
-
-    .link {
-        display: none;
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        background-color: black;
-        top: 0;
-        left: 0;
-    }
-
-    .link.active {
-        display: block;
-        z-index: 2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    .link.active li {
-        list-style: none;
-        margin-top: 20px;
-    }
-
-    .link.active li a {
-        color: white;
-        text-decoration: none;
-        font-size: 30px;
-    }
-</style>
-<link rel="stylesheet" href="../static/login.css">
 
 <body>
     <div class="container">
@@ -113,32 +113,156 @@
                 <div class="menu-button"></div>
             </div>
         </nav>
-            <form action="/login" method="POST">
-                Login
-                <div class="user">
-                    <label for="Username">Username</label><br>
-                    <input type="text" name="Username" id="">
+        <section>
+            <div class="berthmenu">        
+                <input type="button" value="Lower" class="lower-button" disabled>
+                <input type="button" value="Upper" class="upper-button">
+            </div>
+            <ul class="showcase">
+                <li>
+                    <div class="seat"></div>
+                    <small>N/A</small>
+                </li>
+                <li>
+                    <div class="seat selected"></div>
+                    <small>Selected</small>
+                </li>
+                <li>
+                    <div class="seat booked"></div>
+                    <small>Booked</small>
+                </li>
+            </ul>
+            <div class="lower">
+                Bus
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
                 </div>
-                <div class="pass">
-                    <label for="Password">Password</label><br>
-                    <input type="password" name="Password" id="">
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat booked"></div>
+                        <div class="seat"></div>
+                    </div>
                 </div>
-                <input type="submit" value="LogIn" id="subbtn">
-            </form>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat booked"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat booked"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="upper">
+                Bus
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat booked"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat "></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+            </div>
+            <p>You Have Selected <span class="count">0</span> For Price Of Rs.<span class="total">0</span></p>
+            <button type="submit">Pay <span class="total">0</span></button>
+        </section>
     </div>
-    <ul class="link">
-        <li><a href="/">Home</a></li>
-        <li><a href="/checking">Booking</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-    <script>
-        let menu_button = document.querySelector('.menu');
-        let link = document.querySelector('.link')
-        menu_button.onclick = function () {
-            menu_button.classList.toggle("active");
-            link.classList.toggle('active');
-        }
-    </script>
+    <script src="../static/test.js"></script>
 </body>
 
 </html>

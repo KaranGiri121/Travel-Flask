@@ -1,0 +1,169 @@
+.formclass {
+    position: absolute;
+    top: 10%;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    color: black;
+    padding: 10% 10%;
+}
+
+form {
+    flex: 0 70%;
+    /* outline: auto; */
+    background-color: #f2f2f2;
+    border: 1px solid black;
+    /* border-right: 0px; */
+    overflow: hidden;
+    padding: 4%;
+    /* height:fit-content; */
+    /* margin-left: 10px; */
+}
+
+.showcase {
+    flex: 1;
+    /* outline: auto; */
+    width: fit-content;
+    background-color: #f2f2f2;
+    color: black;
+    height: fit-content;
+    position: relative;
+    border: 1px solid black;
+}
+
+.inputfield {
+    margin: 10px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    font-size: 1.5rem;
+}
+
+.inputfield input {
+    width: 50%;
+    height: 2rem;
+}
+.hidden
+{
+    display: none;
+}
+.cardiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin: 4%;
+    font-size: 1.5rem;
+    border: 1px solid black;
+}
+
+.cardiv div {
+    padding-left: 10px;
+}
+
+.head {
+    font-size: 2.5rem;
+    background-color: black;
+    color: white;
+}
+
+.space {
+    font-size: 1rem;
+}
+
+
+
+.btn label {
+    background-color: green;
+    height: 2.5rem;
+    letter-spacing: 0.2rem;
+    cursor: pointer;
+    width: 100%;
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width:1100px) {
+    form
+    {
+        flex:0 50%;
+        height: fit-content;
+    }
+    .showcase
+    {
+        flex:1;
+    }
+    .head
+    {
+        font-size: 2rem;
+    }
+    .space
+    {
+        font-size: 1.2rem;
+    }
+    .cardiv
+    {
+        font-size: 1.5rem;
+    }
+    .inputfield input
+    {
+        width: 100%;
+    }
+}
+@media only screen and (max-width:700px)
+{
+    .formclass
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        /* padding: 10% 10%; */
+        height: fit-content; 
+        /* width: fit-content; */
+    }
+    form
+    {
+        width:75%;
+        /* outline: auto; */
+    }
+    .showcase
+    {
+        width: 75%;
+    }
+    .inputfield 
+    {
+        margin: 0 10px;
+        font-size: 1rem;
+    }
+    .inputfield input
+    {
+        height: 1.5rem;
+        width: 75%;
+    }
+    .space
+    {
+        font-size: 0.8rem;
+    }
+    .cardiv
+    {
+        font-size: 1rem;
+    }
+    .head
+    {
+        font-size: 1.5rem !important;
+    }
+}
+@media only screen and (max-width:400px)
+{
+    form
+    {
+        padding: 4% 0;
+        
+    }
+    .inputfield input
+    {
+        width: 100%;
+    }
+}

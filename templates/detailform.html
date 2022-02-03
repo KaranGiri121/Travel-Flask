@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel</title>
+    <!-- <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}"> -->
+    <link rel="stylesheet" href="../static/detailform.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: rgb(24, 24, 22);
+            /* background-color: antiquewhite; */
+            background-color: #ffffff;
+            color: white;
+            /* color: black; */
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        nav {
+            width: 100%;
+            padding: 10px 8%;
+            display: flex;
+            justify-content: space-between;
+            background-color: rgb(59, 58, 58);
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 600;
+            z-index: 3;
+        }
+
+        .menu {
+            cursor: pointer;
+            display: block;
+            width: 30px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .menu .menu-button {
+            position: absolute;
+            width: 25px;
+            height: 2px;
+            background-color: white;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .menu-button::before {
+            content: "";
+            position: absolute;
+            top: -7px;
+            width: 25px;
+            height: 2px;
+            background-color: white;
+        }
+
+        .menu-button::after {
+            content: "";
+            position: absolute;
+            top: 7px;
+            width: 25px;
+            height: 2px;
+            background-color: white;
+        }
+
+        .link {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            top: 0;
+            left: 0;
+        }
+
+        .link.active {
+            display: block;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .link.active li {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .link.active li a {
+            color: white;
+            text-decoration: none;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                Travel
+            </div>
+            <div class="menu">
+                <div class="menu-button"></div>
+            </div>
+        </nav>
+        <div class="formclass">
+            <form action="?action=PaymentProcess" method="POST">
+                <div class="inputfield">
+                    <label for="Name">Name</label>
+                    <input type="text" name="Name" id="">
+                </div>
+                <div class="inputfield">
+                    <label for="Mobile">Mobile No.</label>
+                    <input type="text" name="Mobile" id="">
+                </div>
+                <div class="inputfield">
+                    <label for="Email">Email</label>
+                    <input type="email" name="Email" id="">
+                </div>
+                <!-- <input type="submit" value="Submit" class="sub-btn"> -->
+                <input type="submit" class="hidden" id="pay-btn">
+
+            </form>
+            <div class="showcase">
+                <div class="cardiv head">
+                    <div>Cart</div>
+                    <!-- <div></div> -->
+                </div>
+                <div class="cardiv">
+                    <div>Tour</div>
+                    <span class="Tour space">Maharashta To Nepalgunj</span>
+                </div>
+                <div class="cardiv">
+                    <div>Price</div>
+                    <span class="Price">0</span>
+                </div>
+                <div class="cardiv">
+                    <div>Total Seat</div>
+                    <span class="Seats">0</span>
+                </div>
+                <div class="cardiv">
+                    <div>Total Fare</div>
+                    <span class="Total">0</span>
+                </div>
+                <div class="cardiv btn">
+                    <label for="pay-btn">Pay</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="link">
+        <li><a href="/">Home</a></li>
+        <li><a href="/checking">Booking</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <!-- <script src="{{url_for('static',filename='index.js')}}"></script> -->
+    <script src="../static/detail.js"></script>
+    
+    <script>
+        var data={{result["Info"]|tojson}};
+        document.querySelector(".Tour").innerHTML=data.From+" To "+data.To;
+        document.querySelector(".Price").innerHTML=data.Price;
+        document.querySelector(".Seats").innerHTML=data.Seat;
+        document.querySelector(".Total").innerHTML=data.Seat*data.Price;
+    </script>
+
+    {%if "Data" in result %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+        "key": "rzp_test_I4lyqs7F3Yvm7k",
+        "name": "Travel",
+        "description": "Ok Just Checking",
+        "image": "",
+        "order_id": "{{result['Data']['id']}}",
+        "callback_url":"http://127.0.0.1:5000/success",
+        "theme": {
+        "color": "#3399cc"
+        }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+        });
+        rzp1.open();
+        </script>
+        {%endif%}
+</body>
+
+</html>

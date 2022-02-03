@@ -5,11 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='booking.css')}}">
-    <!-- <link rel="stylesheet" href="../static/booking.css"> -->
-
-
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/booking.css">
 </head>
 
 <body>
@@ -23,126 +20,185 @@
             </div>
         </nav>
         <section>
-            <div class="info">
-                Selected<br>
-                <p class="From">From:- {{result["From"]}}</p>
-                <p class="To">To:- {{result["To"]}}</p>
-                <p class="dateplace">Date:- {{result["Date"]}}</p>
+            <div class="berthmenu">        
+                <input type="button" value="Lower" class="lower-button" disabled>
+                <input type="button" value="Upper" class="upper-button">
             </div>
-            <div class="busseats">
-                <div class="berthmenu">        
-                    <input type="button" value="Lower" class="lower" disabled>
-                    <input type="button" value="Upper" class="upper">
-                </div>
-                <div class="lowerberth">
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
+            <ul class="showcase">
+                <li>
+                    <div class="seat"></div>
+                    <small>N/A</small>
+                </li>
+                <li>
+                    <div class="seat selected"></div>
+                    <small>Selected</small>
+                </li>
+                <li>
+                    <div class="seat booked"></div>
+                    <small>Booked</small>
+                </li>
+            </ul>
+            <div class="lower">
+                Bus<br>
+                <p style="font-size: calc(fit-content)" class="banner"></p>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
                     </div>
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
-                    </div>
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
-                    </div>
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
-                    </div>
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
                     </div>
                 </div>
-                <div class="upperberth">
-                    <div class="berthcontainer" id="Upper">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
                     </div>
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
                     </div>
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
                     </div>
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
                     </div>
-                    <div class="berthcontainer">
-                        <div class="left"></div>
-                        <div class="middle">
-                            M<br>i<br>d<br>d<br>l<br>e
-                        </div>
-                        <div class="right"></div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
                     </div>
                 </div>
             </div>
+            <div class="upper">
+                Bus <br>
+                <p style="font-size: calc(fit-content)" class="banner"></p>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat "></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+                <div class="berth">
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                    <div class="row">
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                        <div class="seat"></div>
+                    </div>
+                </div>
+            </div>
+            <p>You Have Selected <span class="count">0</span> For Price Of Rs.<span class="total">0</span></p>
+            <form action="/detailform" name="pay" method="POST">
+                <input type="hidden" name="LSeat" value="">
+                <input type="hidden" name="USeat" value="">
+                <button type="submit">Pay <span class="total">0</span></button>
+            </form>
         </section>
     </div>
-    <ul class="link">
-        <li><a href="/">Home</a></li>
-        <li><a href="#">Booking</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-    <script src="{{url_for('static',filename='booking.js')}}"></script>
-    <!-- <script src="../static/booking.js"></script> -->
     <script>
-        let menu_button=document.querySelector('.menu');
-        let logo=document.querySelector('.logo');
-        let link=document.querySelector('.link')
-        menu_button.onclick = function(){
-            menu_button.classList.toggle("active");
-            link.classList.toggle('active');
-        }
-
         let data={{result|tojson}};
         let value=JSON.parse(data);
-        for(let i=0;i<value.Lower.length;i++)
+        let banner=document.querySelectorAll('.banner');
+        banner[0].innerHTML=value.From+" To "+value.To;
+        banner[1].innerHTML=value.From+" To "+value.To;
+        let Left=document.querySelectorAll(".lower .berth .row .seat");
+        for(let i=0;value.Lower!=null && i<30;i++)
         {
-            x=document.getElementById(value.Lower[i]);
-            x.style.backgroundColor="green";
+            if(value["Lower"].indexOf(i)==-1)
+            {
+                Left[i].classList.toggle("booked");
+            }
         }
-        for(let i=0;i<value.Upper.length;i++)
+        let Right=document.querySelectorAll(".upper .berth .row .seat");
+        for(let i=0;value.Upper!=null && i<30;i++)
         {
-            x=document.getElementById(value.Upper[i]);
-            x.style.backgroundColor="green";
+            if(value["Upper"].indexOf(i)==-1)
+            {
+                Right[i].classList.toggle("booked");
+            }
         }
-        document.querySelector(".From").innerHTML="Place "+value.From[0];
-        document.querySelector(".To").innerHTML="Place "+value.To[0];
-        document.querySelector(".dateplace").innerHTML="Date "+value.Date[0]
+        let Price=value.Price;
     </script>
+    <script src="../static/booking.js"></script>
 </body>
 
 </html>
