@@ -190,7 +190,7 @@ def detailform():
     if 'id' not in session:
         return redirect(url_for("index"))
 
-    if Lseat==None or Useat==None:
+    if Lseat==None or Useat==None or (Lseat==0 or Useat==0):
         return redirect(url_for("index"))
 
     if "Payment" not in session and request.args.get("action") == "PaymentProcess":
@@ -216,6 +216,7 @@ def detailform():
 
     if 'Payment' in session:
         result["Data"]=session["Payment"]
+        result["KEY"]=MID
 
     result["Info"]=Info
     return render_template("detailform.html", result=result)

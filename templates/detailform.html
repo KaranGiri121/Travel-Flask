@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel</title>
+    <title>Travel Form</title>
     <!-- <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}"> -->
     <link rel="stylesheet" href="../static/detailform.css">
     <style>
@@ -111,7 +111,7 @@
     <div class="container">
         <nav>
             <div class="logo">
-                Travel
+                Shree Saraswati Travel
             </div>
             <div class="menu">
                 <div class="menu-button"></div>
@@ -182,9 +182,9 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         var options = {
-        "key": "rzp_test_I4lyqs7F3Yvm7k",
-        "name": "Travel",
-        "description": "Ok Just Checking",
+        "key": "{{result['Key']}}",
+        "name": "Shree Saraswati Travel",
+        "description": "Wish You A Very Safe Journey",
         "image": "",
         "order_id": "{{result['Data']['id']}}",
         "callback_url":"http://127.0.0.1:5000/success",
