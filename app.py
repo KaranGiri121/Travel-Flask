@@ -1,32 +1,26 @@
-import re
 from flask import Flask, abort, render_template, request, redirect, url_for, session, g
 import json
 import datetime
 from ast import literal_eval as to_list
 import sqlite3 as sql
 import razorpay
+from internal.Key import *
 from internal import price
 
 client = razorpay.Client(
-    auth=("rzp_test_I4lyqs7F3Yvm7k", "Tg8752Ru21lqXu2GnvRj6ooN"))
+    auth=(MID, MKEY))
 
 nepaltour = ['Dhangadi', 'Nepalgunj', 'Butwal']
 
 
 
 app = Flask(__name__)
-app.secret_key="Karangiri121@gmail.com"
+app.secret_key=Secret_Key
 
-
-@app.before_request
-def before_request():
-    if "id" in session:
-        print("yes")
 
 
 @app.route("/")
 def index():
-    print("Helloooooo")
     session.pop("id",None)
     session.pop("From",None)
     session.pop("To",None)
@@ -88,7 +82,6 @@ def check():
         session['From'] = From
         session["To"] = To
         session["Date"] = Date
-        print(Date,type(Date))
 
     else:
         From = session["From"]
@@ -114,7 +107,6 @@ def check():
         result = json.dumps(result)
         lower=list(range(0,30))
         upper=list(range(0,30))
-        print("Inserting New Row With New Date")
         conn.execute(f"INSERT INTO {Place} (Date,Lower,Upper) VALUES(?,?,?)",(f'{Date}',f'{lower}',f'{upper}'))
         conn.commit()
         return render_template("booking.html", result=result)
@@ -178,9 +170,7 @@ def detailform():
     Info={}
     result={}
     if "id" not in session:
-        print("id")
         return redirect(url_for("index"))
-    print(request.method)
 
     if request.method == "POST" and request.args.get("action") != 'PaymentProcess':
         try:
@@ -198,11 +188,9 @@ def detailform():
     # print(request.method)
 
     if 'id' not in session:
-        print("Hell")
         return redirect(url_for("index"))
 
     if Lseat==None or Useat==None:
-        print("size")
         return redirect(url_for("index"))
 
     if "Payment" not in session and request.args.get("action") == "PaymentProcess":
@@ -213,7 +201,6 @@ def detailform():
         #Make Some Variable To Show In DetailFrom HTML   
         # Result["Data"] = payment
         session["Payment"]=payment
-        print(payment)
         # print(payment)
         # # Result["Info"] = Info
         # return render_template("detailform.html", result=Result)
@@ -253,7 +240,6 @@ def verifyPayment():
         conn.row_factory=sql.Row
         cur=conn.cursor()
         info=cur.execute(f"SELECT Lower,Upper FROM {Place} WHERE Date='{Date}'").fetchone()
-        print(info)
         Lower=to_list(info["Lower"])
         Upper=to_list(info["Upper"])
 
